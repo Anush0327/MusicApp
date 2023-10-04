@@ -11,3 +11,4 @@ The features we are trying add in this application are:-
 1. user can navigate to different genres, artist, albums and playlist to maintain his song collection.
 1. user can also maintain liked songs seperately.
 
+![Demo front-end of our application](FrontEnd.png)
