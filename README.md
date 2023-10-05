@@ -1,5 +1,5 @@
 # MusicApp
-#Introduction
+# Introduction
 
 This application helps users to maintain their favorite music and categorize their favorite songs based on different categories.
 
