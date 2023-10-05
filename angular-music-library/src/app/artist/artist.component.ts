@@ -11,6 +11,7 @@ import { MusicService } from '../music.service';
 export class ArtistComponent {
   artistName: string = "";
   songs: Song[] = [];
+  currentlyPlaying: string = "";
 
   constructor(private route: ActivatedRoute, private musicService: MusicService){}
 
@@ -21,5 +22,14 @@ export class ArtistComponent {
         this.songs = res;
       });
     });
+  }
+
+  togglePlay(title: string) {
+    if(this.currentlyPlaying == title) {
+      this.currentlyPlaying = "";
+    }
+    else {
+      this.currentlyPlaying = title;
+    }
   }
 }

@@ -16,11 +16,10 @@ export class AllAlbumsComponent {
   ngOnInit(): void {
     this.musicService.getAlbums().subscribe(res => {
       this.albums = res;
-    })
+    });
   }
 
   getAlbumSongs(albumName: string): void {
-    console.log(albumName);
     this.router.navigate(["/album", albumName]);
   }
 }

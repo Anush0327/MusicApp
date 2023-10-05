@@ -14,6 +14,7 @@ import { AllSongsComponent } from './all-songs/all-songs.component';
 import { LoginComponent } from './login/login.component';
 import { AllArtistsComponent } from './all-artists/all-artists.component';
 import { ArtistComponent } from './artist/artist.component';
+import { AllPlaylistsComponent } from './all-playlists/all-playlists.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ArtistComponent } from './artist/artist.component';
     AllSongsComponent,
     LoginComponent,
     AllArtistsComponent,
-    ArtistComponent
+    ArtistComponent,
+    AllPlaylistsComponent
   ],
   imports: [
     BrowserModule,

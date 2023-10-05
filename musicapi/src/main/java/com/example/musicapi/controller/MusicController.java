@@ -56,7 +56,7 @@ public class MusicController {
         playListService.addToPlayList(songDTO,playListName);
     }
 
-    @GetMapping("/allPlayLists")
+    @GetMapping("/allPlaylists")
     public List<PlayListDTO> getAllPlayLists(){
         return playListService.getAllPlayLists();
     }
