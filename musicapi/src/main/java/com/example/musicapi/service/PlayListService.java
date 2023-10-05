@@ -2,6 +2,8 @@ package com.example.musicapi.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,6 +65,19 @@ public class PlayListService {
         return likedSongs.getSongs().stream().anyMatch(song -> songDTO.getTitle().equals(song.getTitle()));
     }
 
+    public List<SongDTO> changeIsLiked(List<SongDTO> songDTOs){
+        User user = userService.getLoggedInUser();
+        LikedSongs likedSongs = likedSongsRepository.findLikedSongsByUser(user);
+        return songDTOs.stream().peek(songDTO -> {
+            if(alreadyExistingInLikedSongs(likedSongs, songDTO)){
+                songDTO.setLiked(true);
+            }
+            else{
+                songDTO.setLiked(false);
+            }
+        }).collect(Collectors.toList());
+    }
+
     public void addToLikedSongs(SongDTO songDTO){
         User user = userService.getLoggedInUser();
         LikedSongs likedSongs = likedSongsRepository.findLikedSongsByUser(user);
@@ -87,6 +102,7 @@ public class PlayListService {
         LikedSongs likedSongs = likedSongsRepository.findLikedSongsByUser(user);
         likedSongs.getSongs().stream().forEach(song -> songs.add(songService.convertSongToDTO(song)));
         return songs;
+
     }
 
     public List<PlayListDTO> getAllPlayLists(){
