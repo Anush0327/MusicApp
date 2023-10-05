@@ -1,0 +1,24 @@
+.flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+.square {
+    background-color: beige;
+    width: 300px;
+    height: 300px;
+}
+
+h2 {
+    text-align: center;
+    padding-top: 110px;
+    font-size: 40px;
+}
+
+a  {
+    text-decoration: none;
+    color: blue;
+}

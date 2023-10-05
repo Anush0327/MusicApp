@@ -1,10 +1,8 @@
 spring:
-  application:
-    name: "music-service"
   datasource:
-    url: "jdbc:mysql://localhost:3306/music-app"
-    username: Anush
-    password: anush2618
+    url: "jdbc:mysql://localhost:3306/music"
+    username: ankan2001prodapt
+    password: we1c@me1
   jpa:
     properties:
       hibernate:
@@ -13,19 +11,21 @@ spring:
       ddl-auto: update
     show-sql: false
 
-server:
-  port: 8082
+# server:
+#   port: 8082
 
 
-eureka:
-  instance:
-    hostname: localhost
-    prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 10
-    lease-expiration-duration-in-seconds: 20
-  client:
-    service-url:
-      defaultZone: http://localhost:9090/eureka
+# eureka:
+#   instance:
+#     hostname: localhost
+#     prefer-ip-address: true
+#     lease-renewal-interval-in-seconds: 10
+#     lease-expiration-duration-in-seconds: 20
+#   client:
+#     service-url:
+#       defaultZone: http://localhost:9090/eureka
+
+
 jwt:
   public:
     key: app.pub

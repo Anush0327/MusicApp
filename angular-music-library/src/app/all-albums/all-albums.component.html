@@ -1,0 +1,9 @@
+<h2 style="text-align: center;">ALBUMS</h2>
+<div class="flex">
+    <div *ngFor="let album of albums">
+        <button type="button" (click)="getAlbumSongs(album.albumName)" class="album">
+            <h3>{{album.albumName}}</h3>
+            <h3>Songs: {{album.numberOfSongs}}</h3>
+        </button>
+    </div>
+</div>
