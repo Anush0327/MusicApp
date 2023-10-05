@@ -23,6 +23,8 @@ public class PlayList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    private String playListName;
     
     @ManyToOne
     @JoinColumn(name= "user_id",referencedColumnName = "id")

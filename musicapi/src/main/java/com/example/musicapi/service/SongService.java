@@ -63,6 +63,19 @@ public class SongService {
                 song.getArtists().add(newArtist2);
             }
         });
+        songDTO.getComposers().stream().forEach(artist ->{
+            Optional<Artist> newArtist = artistRepository.findByArtistName(artist);
+            if(newArtist.isPresent()){
+                song.getArtists().add(newArtist.get());
+            }
+            else{
+                Artist newArtist2 = new Artist();
+                newArtist2.setArtistName(artist);
+                newArtist2.setComposer(true);
+                artistRepository.save(newArtist2);
+                song.getArtists().add(newArtist2);
+            }
+        });
         Optional<Album> album = albumRepositry.findByAlbumName(songDTO.getAlbumName());
         if(album.isPresent()){
             song.setAlbum(album.get());
@@ -81,6 +94,7 @@ public class SongService {
         songDTO.setTitle(song.getTitle());
         song.getArtists().stream().forEach(artist -> songDTO.getArtists().add(artist.getArtistName()));
         songDTO.setAlbumName(song.getAlbum().getAlbumName());
+        songDTO.setYear(song.getAlbum().getYear());
         return songDTO;
     }
 
@@ -101,15 +115,17 @@ public class SongService {
     public void addSongToLibrary(SongDTO songDTO){
         User user = userService.getLoggedInUser();
         UserLibrary userLibrary = userLibraryRepository.findByUser(user);
+        if(userLibrary == null)
+        {
+            userLibrary = new UserLibrary();
+            userLibrary.setUser(user);
+        }
+        if(userLibrary.getSongs()==null){
+            userLibrary.setSongs(new ArrayList<>());
+        }
         if(!songAllReadyInLibrary(songDTO, userLibrary))
         {
-            Song song = new Song();
-            song.setTitle(songDTO.getTitle());
-            songDTO.getArtists().stream().forEach(artist -> {
-                Artist newartist = new Artist();
-                newartist.setArtistName(artist);
-                song.getArtists().add(newartist);
-            });
+            Song song = convertDTOToSong(songDTO);
             userLibrary.getSongs().add(song);
             songRepository.save(song);
             userLibraryRepository.save(userLibrary);

@@ -51,6 +51,11 @@ public class MusicController {
         songService.addSongToLibrary(songDTO);
     }
 
+    @PostMapping("/playlist/add")
+    public void addSongTOPlayList(@RequestParam String playListName,@RequestBody SongDTO songDTO){
+        playListService.addToPlayList(songDTO);
+    }
+
     @GetMapping("/allAlbums")
     public List<AlbumDTO> getAllAlbums(){
         return albumService.getAllAlbums();

@@ -73,7 +73,7 @@ public class BasicConfiguration {
             .authorizeHttpRequests((requests) -> requests
             .requestMatchers("/register", "/api/auth/token").permitAll()
             // .requestMatchers("/api/cycles/add").hasRole("ADMIN")
-            .requestMatchers("/api/cycles/add","/api/cycles/all-Purchases").hasAuthority("SCOPE_ROLE_ADMIN")
+            // .requestMatchers("/api/cycles/add","/api/cycles/all-Purchases").hasAuthority("SCOPE_ROLE_ADMIN")
             .anyRequest().authenticated())
             .logout(withDefaults())
             .httpBasic(withDefaults())
