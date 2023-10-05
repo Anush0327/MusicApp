@@ -92,7 +92,8 @@ public class SongService {
     public SongDTO convertSongToDTO(Song song){
         SongDTO songDTO = new SongDTO();
         songDTO.setTitle(song.getTitle());
-        song.getArtists().stream().forEach(artist -> songDTO.getArtists().add(artist.getArtistName()));
+        song.getArtists().stream().filter(artist ->
+            artist.isComposer() ? songDTO.getComposers().add(artist.getArtistName()) : songDTO.getArtists().add(artist.getArtistName()));
         songDTO.setAlbumName(song.getAlbum().getAlbumName());
         songDTO.setYear(song.getAlbum().getYear());
         return songDTO;

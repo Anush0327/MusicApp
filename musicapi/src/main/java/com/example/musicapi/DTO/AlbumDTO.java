@@ -8,7 +8,9 @@ import lombok.Data;
 @Data
 public class AlbumDTO {
     
-    private List<SongDTO> songs = new ArrayList<>();
+    private String albumName;
 
     private int numberOfSongs;
+
+    private int year;
 }

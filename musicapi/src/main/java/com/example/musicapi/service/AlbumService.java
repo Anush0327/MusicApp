@@ -32,8 +32,9 @@ public class AlbumService {
         List<AlbumDTO> albums = new ArrayList<>();
         albumRepositry.findAll().forEach(album -> {
             AlbumDTO newAlbumDTO = new AlbumDTO();
-            newAlbumDTO.setSongs(getAllSongsInAlbum(album.getAlbumName()));
-            newAlbumDTO.setNumberOfSongs(newAlbumDTO.getSongs().size());
+            newAlbumDTO.setAlbumName(album.getAlbumName());
+            newAlbumDTO.setNumberOfSongs(getAllSongsInAlbum(album.getAlbumName()).size());
+            newAlbumDTO.setYear(album.getYear());
             albums.add(newAlbumDTO);
         });
         return albums;
