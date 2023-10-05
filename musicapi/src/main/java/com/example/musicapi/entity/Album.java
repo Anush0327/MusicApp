@@ -21,6 +21,5 @@ public class Album {
 
     private String albumName;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Song> songs = new ArrayList<>();
+    private int year;
 }
