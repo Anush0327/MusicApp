@@ -9,6 +9,8 @@ import { MusicService } from '../music.service';
 })
 export class AllSongsComponent {
   songs: Song[] = [];
+  currentlyPlaying: string = "";
+
 
   constructor(private musicService: MusicService) {}
 
@@ -16,5 +18,14 @@ export class AllSongsComponent {
     this.musicService.getAllSongs().subscribe(res => {
       this.songs = res;
     })
+  }
+
+  togglePlay(title: string) {
+    if(this.currentlyPlaying == title) {
+      this.currentlyPlaying = "";
+    }
+    else {
+      this.currentlyPlaying = title;
+    }
   }
 }

@@ -40,7 +40,7 @@ export class MusicService {
   }
 
   getArtistSongs(artistName: string): Observable<Song[]> {
-    return this.http.get<Song[]>(`${this.musicUrl}/artist?name=${artistName}`, {headers: this.getHeader()});
+    return this.http.get<Song[]>(`${this.musicUrl}/artist?artistName=${artistName}`, {headers: this.getHeader()});
   }
 
 }

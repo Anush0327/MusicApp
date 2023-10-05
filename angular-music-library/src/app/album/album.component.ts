@@ -6,7 +6,7 @@ import { MusicService } from '../music.service';
 @Component({
   selector: 'app-album',
   templateUrl: './album.component.html',
-  styleUrls: ['./album.component.css']
+  styleUrls: ['./album.component.css', '../all-songs/all-songs.component.css']
 })
 export class AlbumComponent {
   albumName: string = "";

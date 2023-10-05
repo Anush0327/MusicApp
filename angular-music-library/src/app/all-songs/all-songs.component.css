@@ -1,0 +1,12 @@
+.center-align {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+}

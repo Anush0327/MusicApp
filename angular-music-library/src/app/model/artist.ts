@@ -1,3 +1,4 @@
 export interface Artist {
-    name: string
+    artistName: string;
+    isComposer: boolean;
 }
