@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.musicapi.DTO.AlbumDTO;
 import com.example.musicapi.DTO.ArtistDTO;
+import com.example.musicapi.DTO.PlayListDTO;
 import com.example.musicapi.DTO.SongDTO;
 import com.example.musicapi.service.AlbumService;
 import com.example.musicapi.service.ArtistService;
@@ -53,6 +54,26 @@ public class MusicController {
     @PostMapping("/playlist/add")
     public void addSongTOPlayList(@RequestParam String playListName,@RequestBody SongDTO songDTO){
         playListService.addToPlayList(songDTO,playListName);
+    }
+
+    @GetMapping("/allPlayLists")
+    public List<PlayListDTO> getAllPlayLists(){
+        return playListService.getAllPlayLists();
+    }
+
+    @GetMapping("/playlist")
+    public List<SongDTO> getAllPlayListSongs(@RequestParam String playListName){
+        return playListService.getAllPlayListSongs(playListName);
+    }
+
+    @PostMapping("/addToLiked")
+    public void addSongToLiked(@RequestBody SongDTO songDTO){
+        playListService.addToLikedSongs(songDTO);
+    }
+
+    @GetMapping("/likedSongs")
+    public List<SongDTO> getLikedSongs(){
+        return playListService.getLikedSongs();
     }
 
     @GetMapping("/allAlbums")
