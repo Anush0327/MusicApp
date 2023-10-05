@@ -1,7 +1,25 @@
 <div class="center-align">
     <div>
-
-    </div>
+        <form (ngSubmit)="submitForm()">
+          <label for="title">Enter Song Title</label>
+          <input type="text" id="title" name="title" [(ngModel)]="title" required><br>
+      
+          <label for="artists">Enter Artists (comma-separated)</label>
+          <input type="text" id="artists" name="artists" [(ngModel)]="artists" required><br>
+      
+          <label for="composers">Enter Composers (comma-separated)</label>
+          <input type="text" id="composers" name="composers" [(ngModel)]="composers"><br>
+      
+          <label for="albumName">Enter Album Name</label>
+          <input type="text" id="albumName" name="albumName" [(ngModel)]="albumName"><br>
+      
+          <label for="year">Enter Year</label>
+          <input type="number" id="year" name="year" [(ngModel)]="year" required><br>
+      
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      
     <div>
         <h3>Recently Played</h3>
         <ul>

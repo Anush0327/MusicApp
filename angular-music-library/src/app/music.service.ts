@@ -43,4 +43,7 @@ export class MusicService {
     return this.http.get<Song[]>(`${this.musicUrl}/artist?name=${artistName}`, {headers: this.getHeader()});
   }
 
+  addSong(song: any): Observable<any> {
+    return this.http.post(`${this.musicUrl}/library/add`, song, {headers: this.getHeader()});
+  }
 }
