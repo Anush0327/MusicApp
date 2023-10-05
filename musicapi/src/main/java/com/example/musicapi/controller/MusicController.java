@@ -18,7 +18,6 @@ import com.example.musicapi.service.AlbumService;
 import com.example.musicapi.service.ArtistService;
 import com.example.musicapi.service.PlayListService;
 import com.example.musicapi.service.SongService;
-import com.netflix.discovery.converters.Auto;
 
 @RestController
 @RequestMapping("/api/music")
@@ -53,7 +52,7 @@ public class MusicController {
 
     @PostMapping("/playlist/add")
     public void addSongTOPlayList(@RequestParam String playListName,@RequestBody SongDTO songDTO){
-        playListService.addToPlayList(songDTO);
+        playListService.addToPlayList(songDTO,playListName);
     }
 
     @GetMapping("/allAlbums")
