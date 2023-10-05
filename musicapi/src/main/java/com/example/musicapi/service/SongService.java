@@ -19,10 +19,9 @@ import com.example.musicapi.repository.ArtistRepository;
 import com.example.musicapi.repository.SongRepository;
 import com.example.musicapi.repository.UserLibraryRepository;
 
-
 @Service
 public class SongService {
-    
+
     @Autowired
     private SongRepository songRepository;
 
@@ -38,37 +37,40 @@ public class SongService {
     @Autowired
     private UserService userService;
 
-    public SongDTO getSongByname(String name){
+    public SongDTO getSongByname(String name) {
         Song song = songRepository.findByTitle(name).orElseGet(null);
         SongDTO songDTO = new SongDTO();
-        if(song!=null){
+        if (song != null) {
             songDTO.setTitle(song.getTitle());
-            song.getArtists().stream().map(artist -> songDTO.getArtists().add(artist.getArtistName())).collect(Collectors.toList());
+            song.getArtists().stream().map(artist -> songDTO.getArtists().add(artist.getArtistName()))
+                    .collect(Collectors.toList());
         }
         return songDTO;
     }
 
-    public Song convertDTOToSong(SongDTO songDTO){
+    public Song convertDTOToSong(SongDTO songDTO) {
         Song song = new Song();
+        Optional<Song> optSong = songRepository.findByTitle(songDTO.getTitle());
+        if(optSong.isPresent())
+            return optSong.get();
         song.setTitle(songDTO.getTitle());
-        songDTO.getArtists().stream().forEach(artist ->{
+        songDTO.getArtists().stream().forEach(artist -> {
             Optional<Artist> newArtist = artistRepository.findByArtistName(artist);
-            if(newArtist.isPresent()){
+            if (newArtist.isPresent()) {
                 song.getArtists().add(newArtist.get());
-            }
-            else{
+            } else {
                 Artist newArtist2 = new Artist();
                 newArtist2.setArtistName(artist);
+                newArtist2.setComposer(false);
                 artistRepository.save(newArtist2);
                 song.getArtists().add(newArtist2);
             }
         });
-        songDTO.getComposers().stream().forEach(artist ->{
+        songDTO.getComposers().stream().forEach(artist -> {
             Optional<Artist> newArtist = artistRepository.findByArtistName(artist);
-            if(newArtist.isPresent()){
+            if (newArtist.isPresent()) {
                 song.getArtists().add(newArtist.get());
-            }
-            else{
+            } else {
                 Artist newArtist2 = new Artist();
                 newArtist2.setArtistName(artist);
                 newArtist2.setComposer(true);
@@ -77,10 +79,9 @@ public class SongService {
             }
         });
         Optional<Album> album = albumRepositry.findByAlbumName(songDTO.getAlbumName());
-        if(album.isPresent()){
+        if (album.isPresent()) {
             song.setAlbum(album.get());
-        }
-        else{
+        } else {
             Album newAlbum = new Album();
             newAlbum.setAlbumName(songDTO.getAlbumName());
             newAlbum.setYear(songDTO.getYear());
@@ -89,43 +90,46 @@ public class SongService {
         }
         return song;
     }
+
     public SongDTO convertSongToDTO(Song song){
         SongDTO songDTO = new SongDTO();
         songDTO.setTitle(song.getTitle());
-        song.getArtists().stream().filter(artist ->
-            artist.isComposer() ? songDTO.getComposers().add(artist.getArtistName()) : songDTO.getArtists().add(artist.getArtistName()));
+        song.getArtists().stream().forEach(artist -> {
+            if(artist.isComposer())
+                songDTO.getComposers().add(artist.getArtistName());
+            else
+                songDTO.getArtists().add(artist.getArtistName());
+        });
         songDTO.setAlbumName(song.getAlbum().getAlbumName());
         songDTO.setYear(song.getAlbum().getYear());
         return songDTO;
     }
 
-    public List<SongDTO> getAllLibrarySongs(){
+    public List<SongDTO> getAllLibrarySongs() {
         List<SongDTO> songs = new ArrayList<>();
         User user = userService.getLoggedInUser();
-        UserLibrary userLibrary = userLibraryRepository.findByUser(user); 
+        UserLibrary userLibrary = userLibraryRepository.findByUser(user);
         userLibrary.getSongs().stream().forEach(song -> songs.add(convertSongToDTO(song)));
         return songs;
     }
 
-    public boolean songAllReadyInLibrary(SongDTO songDTO,UserLibrary userLibrary){
+    public boolean songAllReadyInLibrary(SongDTO songDTO, UserLibrary userLibrary) {
         return userLibrary.getSongs().stream()
-                                    .filter(song -> songDTO.getTitle().equals(song.getTitle()))
-                                    .findFirst().isPresent(); 
+                .filter(song -> songDTO.getTitle().equals(song.getTitle()))
+                .findFirst().isPresent();
     }
 
-    public void addSongToLibrary(SongDTO songDTO){
+    public void addSongToLibrary(SongDTO songDTO) {
         User user = userService.getLoggedInUser();
         UserLibrary userLibrary = userLibraryRepository.findByUser(user);
-        if(userLibrary == null)
-        {
+        if (userLibrary == null) {
             userLibrary = new UserLibrary();
             userLibrary.setUser(user);
         }
-        if(userLibrary.getSongs()==null){
+        if (userLibrary.getSongs() == null) {
             userLibrary.setSongs(new ArrayList<>());
         }
-        if(!songAllReadyInLibrary(songDTO, userLibrary))
-        {
+        if (!songAllReadyInLibrary(songDTO, userLibrary)) {
             Song song = convertDTOToSong(songDTO);
             userLibrary.getSongs().add(song);
             songRepository.save(song);

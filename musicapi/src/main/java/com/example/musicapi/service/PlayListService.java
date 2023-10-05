@@ -6,12 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.musicapi.DTO.PlayListDTO;
 import com.example.musicapi.DTO.SongDTO;
-
+import com.example.musicapi.entity.LikedSongs;
 import com.example.musicapi.entity.PlayList;
 import com.example.musicapi.entity.Song;
 import com.example.musicapi.entity.User;
-
+import com.example.musicapi.repository.LikedSongsRepository;
 import com.example.musicapi.repository.PlayListRepository;
 
 
@@ -25,9 +26,12 @@ public class PlayListService {
     private UserService userService;
 
     @Autowired
+    private LikedSongsRepository likedSongsRepository;
+
+    @Autowired
     private SongService songService;
 
-    public boolean allreadyExistingSong(PlayList playList,SongDTO songDTO){
+    public boolean alreadyExistingInPlayList(PlayList playList,SongDTO songDTO){
         return playList.getSongs().stream().anyMatch(song -> songDTO.getTitle().equals(song.getTitle()));
     }
     
@@ -40,18 +44,61 @@ public class PlayListService {
             playList.setUser(user);
             playList.setPlayListName(playListName);
         }
-        if(!allreadyExistingSong(playList, songDTO)){
+        if(!alreadyExistingInPlayList(playList, songDTO)){
             Song song = songService.convertDTOToSong(songDTO);
             playList.getSongs().add(song);
             playListRepository.save(playList);
         }
     }
 
-    public List<SongDTO> getAllPlayListSongs(){
+    public List<SongDTO> getAllPlayListSongs(String playListName){
         List<SongDTO> songs = new ArrayList<>();
         User user = userService.getLoggedInUser();
-        PlayList playList = playListRepository.findPlayListByUser(user);;
+        PlayList playList = playListRepository.findPlayListByUserAndPlayListName(user,playListName);
         playList.getSongs().stream().forEach(song -> songs.add(songService.convertSongToDTO(song)));
         return songs;
+    }
+
+    public boolean alreadyExistingInLikedSongs(LikedSongs likedSongs,SongDTO songDTO){
+        return likedSongs.getSongs().stream().anyMatch(song -> songDTO.getTitle().equals(song.getTitle()));
+    }
+
+    public void addToLikedSongs(SongDTO songDTO){
+        User user = userService.getLoggedInUser();
+        LikedSongs likedSongs = likedSongsRepository.findLikedSongsByUser(user);
+        if(likedSongs==null){
+            likedSongs = new LikedSongs();
+            likedSongs.setUser(user);
+        }
+        if(!alreadyExistingInLikedSongs(likedSongs, songDTO)){
+            Song song = songService.convertDTOToSong(songDTO);
+            likedSongs.getSongs().add(song);
+        }
+        else{
+            Song song = songService.convertDTOToSong(songDTO);
+            likedSongs.getSongs().remove(song);
+        }
+        likedSongsRepository.save(likedSongs);
+    }
+
+    public List<SongDTO> getLikedSongs(){
+        List<SongDTO> songs = new ArrayList<>();
+        User user = userService.getLoggedInUser();
+        LikedSongs likedSongs = likedSongsRepository.findLikedSongsByUser(user);
+        likedSongs.getSongs().stream().forEach(song -> songs.add(songService.convertSongToDTO(song)));
+        return songs;
+    }
+
+    public List<PlayListDTO> getAllPlayLists(){
+        List<PlayListDTO> playListDTOs = new ArrayList<>();
+        User user = userService.getLoggedInUser();
+        List<PlayList> playLists = playListRepository.findAllPlayListByUser(user);
+        playLists.stream().forEach(playList -> {
+            PlayListDTO playListDTO = new PlayListDTO();
+            playListDTO.setPlayListName(playList.getPlayListName());
+            playListDTO.setSongs(getAllPlayListSongs(playList.getPlayListName()));
+            playListDTOs.add(playListDTO);
+        });
+        return playListDTOs;
     }
 }

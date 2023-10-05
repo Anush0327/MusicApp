@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.musicapi.DTO.ArtistDTO;
 import com.example.musicapi.DTO.SongDTO;
+import com.example.musicapi.entity.Artist;
 import com.example.musicapi.repository.ArtistRepository;
 
 @Service
@@ -33,12 +34,21 @@ public class ArtistService {
 
     public List<SongDTO> getAllSongsOfArtist(String artistName){
         List<SongDTO> songs = new ArrayList<>();
+        Artist newArtist = artistRepository.findByArtistName(artistName).get();
+        if(!newArtist.isComposer()){
         songs = songService.getAllLibrarySongs().stream().
         filter(song->song.getArtists()
                             .stream().filter(artist -> artist.equals(artistName))
                             .findFirst().isPresent())
                             .collect(Collectors.toList());
-        
+        }
+        else{
+        songs = songService.getAllLibrarySongs().stream().
+        filter(song->song.getComposers()
+                            .stream().filter(artist -> artist.equals(artistName))
+                            .findFirst().isPresent())
+                            .collect(Collectors.toList());
+        }
         return songs;
     }
 }
