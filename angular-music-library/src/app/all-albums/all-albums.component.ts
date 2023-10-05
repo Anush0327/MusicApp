@@ -9,10 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./all-albums.component.css']
 })
 export class AllAlbumsComponent {
-  albums: Album[] = [
-    {albumName: "Heart", numberOfSongs: 1, year: 2001},
-    {albumName: "Mind", numberOfSongs: 2, year: 2023}
-  ];
+  albums: Album[] = [];
 
   constructor(private musicService: MusicService, private router: Router) {}
 
@@ -23,7 +20,7 @@ export class AllAlbumsComponent {
   }
 
   getAlbumSongs(albumName: string): void {
-    // this.router.navigateByUrl()
     console.log(albumName);
+    this.router.navigate(["/album", albumName]);
   }
 }

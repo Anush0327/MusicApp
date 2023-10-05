@@ -4,12 +4,19 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LibraryComponent } from './library/library.component';
 import { AllAlbumsComponent } from './all-albums/all-albums.component';
+import { AlbumComponent } from './album/album.component';
+import { AllSongsComponent } from './all-songs/all-songs.component';
+import { LoginComponent } from './login/login.component';
+import { AllArtistsComponent } from './all-artists/all-artists.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
   {path: "library", component: LibraryComponent},
+  {path: "songs", component: AllSongsComponent},
   {path: "albums", component: AllAlbumsComponent},
-  
+  {path: "artists", component: AllArtistsComponent},
+  {path: "login", component: LoginComponent},
+  {path: "album/:albumName", component: AlbumComponent}
 ];
 
 @NgModule({

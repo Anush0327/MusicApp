@@ -9,6 +9,10 @@ import { HomeComponent } from './home/home.component';
 import { LibraryComponent } from './library/library.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AllAlbumsComponent } from './all-albums/all-albums.component';
+import { AlbumComponent } from './album/album.component';
+import { AllSongsComponent } from './all-songs/all-songs.component';
+import { LoginComponent } from './login/login.component';
+import { AllArtistsComponent } from './all-artists/all-artists.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +20,11 @@ import { AllAlbumsComponent } from './all-albums/all-albums.component';
     NavBarComponent,
     HomeComponent,
     LibraryComponent,
-    AllAlbumsComponent
+    AllAlbumsComponent,
+    AlbumComponent,
+    AllSongsComponent,
+    LoginComponent,
+    AllArtistsComponent
   ],
   imports: [
     BrowserModule,

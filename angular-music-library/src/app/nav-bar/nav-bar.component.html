@@ -8,7 +8,12 @@
     <li>
         <a href="/library">Library</a>
     </li>
-    <li>
-        <button>Log In</button>
+    <li *ngIf="authService.isAuthenticated(); else loginTemplate">
+        <button type="button" (click)="toggleLogin()">log out</button>
     </li>
+    <ng-template #loginTemplate>
+        <li>
+            <button type="button" (click)="toggleLogin()">log in</button>
+        </li>
+    </ng-template>
 </ul>

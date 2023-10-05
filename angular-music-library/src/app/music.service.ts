@@ -36,7 +36,7 @@ export class MusicService {
   }
 
   getAlbumSongs(albumName: string): Observable<Song[]> {
-    return this.http.get<Song[]>(`${this.musicUrl}/album?name=${albumName}`, {headers: this.getHeader()});
+    return this.http.get<Song[]>(`${this.musicUrl}/album?albumName=${albumName}`, {headers: this.getHeader()});
   }
 
   getArtistSongs(artistName: string): Observable<Song[]> {
