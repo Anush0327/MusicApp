@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-all-artists',
   templateUrl: './all-artists.component.html',
-  styleUrls: ['./all-artists.component.css']
+  styleUrls: ['./all-artists.component.css', '../all-albums/all-albums.component.css']
 })
 export class AllArtistsComponent {
   artists: Artist[] = [];

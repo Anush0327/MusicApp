@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Song } from './model/song';
 import { Album } from './model/album';
 import { Artist } from './model/artist';
+import { Playlist } from './model/playlist';
 
 @Injectable({
   providedIn: 'root'
@@ -35,12 +36,20 @@ export class MusicService {
     return this.http.get<Artist[]>(`${this.musicUrl}/allArtists`, {headers: this.getHeader()});
   }
 
+  getPlaylists(): Observable<Playlist[]> {
+    return this.http.get<Playlist[]>(`${this.musicUrl}/allPlaylists`, {headers: this.getHeader()});
+  }
+
   getAlbumSongs(albumName: string): Observable<Song[]> {
     return this.http.get<Song[]>(`${this.musicUrl}/album?albumName=${albumName}`, {headers: this.getHeader()});
   }
 
   getArtistSongs(artistName: string): Observable<Song[]> {
     return this.http.get<Song[]>(`${this.musicUrl}/artist?artistName=${artistName}`, {headers: this.getHeader()});
+  }
+
+  getLikedSongs(): Observable<Song[]> {
+    return this.http.get<Song[]>(`${this.musicUrl}/likedSongs`, {headers: this.getHeader()});
   }
 
 }

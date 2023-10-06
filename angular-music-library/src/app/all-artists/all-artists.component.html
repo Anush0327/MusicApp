@@ -1,7 +1,7 @@
 <h2 style="text-align: center;">Artists</h2>
 <div class="flex">
     <div *ngFor="let artist of artists">
-        <button type="button" (click)="getArtistSongs(artist.artistName)" class="artist">
+        <button type="button" (click)="getArtistSongs(artist.artistName)" class="square">
             <h3>{{artist.artistName}}</h3>
         </button>
     </div>
