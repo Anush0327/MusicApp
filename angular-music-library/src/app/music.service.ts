@@ -52,7 +52,7 @@ export class MusicService {
     if(playlistName == "Liked Songs")
       return this.http.get<Song[]>(`${this.musicUrl}/likedSongs`, {headers: this.getHeader()});
     else
-      return this.http.get<Song[]>(`${this.musicUrl}/playlist?playlistName=${playlistName}`, {headers: this.getHeader()});
+      return this.http.get<Song[]>(`${this.musicUrl}/playlist?playListName=${playlistName}`, {headers: this.getHeader()});
   }
 
   getLikedSongs(): Observable<Song[]> {

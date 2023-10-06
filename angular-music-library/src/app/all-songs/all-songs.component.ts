@@ -26,7 +26,7 @@ export class AllSongsComponent {
     this.musicService.getPlaylists().subscribe(res => {
       this.playlists = res;
       console.log(res);
-    })
+    });
   }
 
   togglePlay(title: string) {
@@ -55,7 +55,6 @@ export class AllSongsComponent {
   }
 
   addToPlaylist(playlistName: string) {
-    console.log(this.selectedSong + "100");
     this.musicService.addToPlaylist(playlistName, this.selectedSong).subscribe(res => {
       this.ngOnInit();
     });
