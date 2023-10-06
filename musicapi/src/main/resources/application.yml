@@ -1,8 +1,11 @@
 spring:
+  # application:
+  #   name: "music-service"
   datasource:
     url: "jdbc:mysql://localhost:3306/music"
     username: joseph
     password: Jos@ph
+
   jpa:
     properties:
       hibernate:

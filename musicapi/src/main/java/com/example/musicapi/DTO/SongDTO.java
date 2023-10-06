@@ -16,5 +16,7 @@ public class SongDTO {
 
     private String albumName;
 
+    private boolean isLiked;
+
     private int year;
 }

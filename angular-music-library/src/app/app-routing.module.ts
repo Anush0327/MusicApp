@@ -8,6 +8,8 @@ import { AlbumComponent } from './album/album.component';
 import { AllSongsComponent } from './all-songs/all-songs.component';
 import { LoginComponent } from './login/login.component';
 import { AllArtistsComponent } from './all-artists/all-artists.component';
+import { ArtistComponent } from './artist/artist.component';
+import { AllPlaylistsComponent } from './all-playlists/all-playlists.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -15,8 +17,10 @@ const routes: Routes = [
   {path: "songs", component: AllSongsComponent},
   {path: "albums", component: AllAlbumsComponent},
   {path: "artists", component: AllArtistsComponent},
+  {path: "playlists", component: AllPlaylistsComponent},
   {path: "login", component: LoginComponent},
-  {path: "album/:albumName", component: AlbumComponent}
+  {path: "album/:albumName", component: AlbumComponent},
+  {path: "artist/:artistName", component: ArtistComponent}
 ];
 
 @NgModule({

@@ -7,9 +7,13 @@
 
 
 .square {
-    background-color: beige;
+    background-color:  	#db0000;
     width: 300px;
     height: 300px;
+}
+
+.square:hover {
+    background-color: #831010;
 }
 
 h2 {
@@ -20,5 +24,5 @@ h2 {
 
 a  {
     text-decoration: none;
-    color: blue;
+    color: white;
 }
