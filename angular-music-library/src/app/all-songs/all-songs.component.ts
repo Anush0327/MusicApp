@@ -17,6 +17,7 @@ export class AllSongsComponent {
   ngOnInit(): void {
     this.musicService.getAllSongs().subscribe(res => {
       this.songs = res;
+      console.log(res);
     })
   }
 

@@ -17,12 +17,12 @@
                     </button>
                 </td>
             </ng-template>
-            <td *ngIf="song.isLiked; else likeSymbol">
-                <button type="button" (click)="toggleLike(song.title)" class="play-button">Unlike</button>
+            <td *ngIf="song.liked; else likeSymbol">
+                <button type="button" (click)="toggleLike(song.title)" class="play-button">💗</button>
             </td>
             <ng-template #likeSymbol>
                 <td>
-                    <button type="button" (click)="toggleLike(song.title)" class="play-button">Like</button>
+                    <button type="button" (click)="toggleLike(song.title)" class="play-button">❤</button>
                 </td>
             </ng-template>
             <td>

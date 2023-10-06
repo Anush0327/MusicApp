@@ -1,1 +1,33 @@
-<p>playlist works!</p>
+<div class="center-align">
+    <h2>Playlist: {{playlistName}}</h2>
+    <table>
+        <tr *ngFor="let song of songs">
+            <td>
+                <h3>{{song.title}}</h3>
+            </td>
+            <td *ngIf="song.title == currentlyPlaying; else playSymbol">
+                <button type="button" (click)="togglePlay(song.title)" class="play-button">
+                    ⏸
+                </button>
+            </td>
+            <ng-template #playSymbol>
+                <td>
+                    <button type="button" (click)="togglePlay(song.title)" class="play-button">
+                        ▶
+                    </button>
+                </td>
+            </ng-template>
+            <td *ngIf="song.liked; else likeSymbol">
+                <button type="button" (click)="toggleLike(song.title)" class="play-button">💗</button>
+            </td>
+            <ng-template #likeSymbol>
+                <td>
+                    <button type="button" (click)="toggleLike(song.title)" class="play-button">❤</button>
+                </td>
+            </ng-template>
+            <td>
+                <button>➕</button>
+            </td>
+        </tr>
+    </table>
+</div>

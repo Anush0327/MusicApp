@@ -68,6 +68,7 @@ public class MusicController {
 
     @PostMapping("/addToLiked")
     public void addSongToLiked(@RequestBody String title){
+        System.out.println(title);
         playListService.addToLikedSongs(songService.getSongByname(title));
     }
 
