@@ -1,25 +1,42 @@
 <div class="center-align">
     <h2>Album: {{albumName}}</h2>
-    <table *ngFor="let song of songs">
-        <tr>
+    <table>
+        <tr *ngFor="let song of songs">
             <td>
                 <h3>{{song.title}}</h3>
             </td>
             <td *ngIf="song.title == currentlyPlaying; else playSymbol">
-                <button type="button" (click)="togglePlay(song.title)">
+                <button type="button" (click)="togglePlay(song.title)" class="play-button">
                     ⏸
                 </button>
             </td>
             <ng-template #playSymbol>
                 <td>
-                    <button type="button" (click)="togglePlay(song.title)">
+                    <button type="button" (click)="togglePlay(song.title)" class="play-button">
                         ▶
                     </button>
                 </td>
             </ng-template>
+            <td *ngIf="song.liked; else likeSymbol">
+                <button type="button" (click)="toggleLike(song.title)" class="play-button">💗</button>
+            </td>
+            <ng-template #likeSymbol>
+                <td>
+                    <button type="button" (click)="toggleLike(song.title)" class="play-button">❤</button>
+                </td>
+            </ng-template>
             <td>
-                <button>➕</button>
+                <button (click)="togglePlaylist(song.title)">➕</button>
             </td>
         </tr>
     </table>
+    <div class="playlists" *ngIf="!playlistHidden">
+        <h3>Select a Playlist</h3>
+        <div *ngFor="let playlist of playlists">
+            <button (click)="addToPlaylist(playlist.playListName)" class="play-button">{{playlist.playListName}}</button>
+        </div>
+        <input type="text" #newPlaylist style="color: black;">
+        <br>
+        <button type="button" (click)="addToPlaylist(newPlaylist.value)" class="play-button">Create And Add</button>
+    </div>
 </div>

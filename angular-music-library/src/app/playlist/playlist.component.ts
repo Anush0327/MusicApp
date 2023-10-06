@@ -5,12 +5,12 @@ import { MusicService } from '../music.service';
 import { Playlist } from '../model/playlist';
 
 @Component({
-  selector: 'app-artist',
-  templateUrl: './artist.component.html',
-  styleUrls: ['./artist.component.css', '../all-songs/all-songs.component.css']
+  selector: 'app-playlist',
+  templateUrl: './playlist.component.html',
+  styleUrls: ['./playlist.component.css', '../all-songs/all-songs.component.css']
 })
-export class ArtistComponent {
-  artistName: string = "";
+export class PlaylistComponent {
+  playlistName: string = "";
   songs: Song[] = [];
   currentlyPlaying: string = "";
   playlistHidden: boolean = true;
@@ -21,10 +21,10 @@ export class ArtistComponent {
 
   ngOnInit(): void {
     this.route.params.subscribe(param => {
-      this.artistName = param['artistName'];
-      this.musicService.getArtistSongs(this.artistName).subscribe(res => {
+      this.playlistName = param['playlistName'];
+      this.musicService.getPlaylistSongs(this.playlistName).subscribe(res => {
         this.songs = res;
-      });
+      })
     });
     this.musicService.getPlaylists().subscribe(res => {
       this.playlists = res;

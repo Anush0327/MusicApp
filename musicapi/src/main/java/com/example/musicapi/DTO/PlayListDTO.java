@@ -9,4 +9,6 @@ public class PlayListDTO {
     private String playListName;
 
     private List<SongDTO> songs;
+
+    private int numberOfSongs;
 }

@@ -1,8 +1,8 @@
 <h2 style="text-align: center;">Playlists</h2>
 <div class="flex">
     <div *ngFor="let playlist of playlists">
-        <button type="button" (click)="getAlbumSongs(playlist.playlistName)" class="square">
-            <h3>{{playlist.playlistName}}</h3>
+        <button type="button" (click)="getAlbumSongs(playlist.playListName)" class="square">
+            <h3>{{playlist.playListName}}</h3>
             <h3>Songs: {{playlist.numberOfSongs}}</h3>
         </button>
     </div>

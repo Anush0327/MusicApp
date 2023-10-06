@@ -55,24 +55,30 @@ public class SongService {
             return optSong.get();
         song.setTitle(songDTO.getTitle());
         songDTO.getArtists().stream().forEach(artist -> {
+            if(artist.trim().length() == 0)
+                return;
             Optional<Artist> newArtist = artistRepository.findByArtistName(artist);
             if (newArtist.isPresent()) {
-                song.getArtists().add(newArtist.get());
+                if(!song.getArtists().contains(newArtist.get()))
+                    song.getArtists().add(newArtist.get());
             } else {
                 Artist newArtist2 = new Artist();
-                newArtist2.setArtistName(artist);
+                newArtist2.setArtistName(artist.trim());
                 newArtist2.setComposer(false);
                 artistRepository.save(newArtist2);
                 song.getArtists().add(newArtist2);
             }
         });
         songDTO.getComposers().stream().forEach(artist -> {
+            if(artist.trim().length() == 0)
+                return;
             Optional<Artist> newArtist = artistRepository.findByArtistName(artist);
             if (newArtist.isPresent()) {
-                song.getArtists().add(newArtist.get());
+                if(!song.getArtists().contains(newArtist.get()))
+                    song.getArtists().add(newArtist.get());
             } else {
                 Artist newArtist2 = new Artist();
-                newArtist2.setArtistName(artist);
+                newArtist2.setArtistName(artist.trim());
                 newArtist2.setComposer(true);
                 artistRepository.save(newArtist2);
                 song.getArtists().add(newArtist2);

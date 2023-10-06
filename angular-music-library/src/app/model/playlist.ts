@@ -1,4 +1,4 @@
 export interface Playlist {
-    playlistName: string;
+    playListName: string;
     numberOfSongs: number;
 }

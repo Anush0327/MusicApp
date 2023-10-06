@@ -1,7 +1,7 @@
 .center-align {
-    text-align: center;
-}
-
-* {
-    color: white;
+    padding: 20px;
+    background-color: azure;
+    width: 350px;
+    height: 200px;
+    margin-left: 400px;
 }

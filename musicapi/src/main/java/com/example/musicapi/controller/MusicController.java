@@ -43,7 +43,7 @@ public class MusicController {
 
     @GetMapping("/allSongs")
     public List<SongDTO> getAllLibrarySongs(){
-        return getAllLibrarySongs();
+        return playListService.getAllSongsAfterLiked(songService.getAllLibrarySongs(), playListService.getLikedSongs());
     }
 
     @PostMapping("/library/add")
@@ -52,8 +52,9 @@ public class MusicController {
     }
 
     @PostMapping("/playlist/add")
-    public void addSongTOPlayList(@RequestParam String playListName,@RequestBody SongDTO songDTO){
-        playListService.addToPlayList(songDTO,playListName);
+    public void addSongTOPlayList(@RequestParam String playlistName,@RequestBody String title){
+        System.out.println(title);
+        playListService.addToPlayList(songService.getSongByname(title), playlistName);
     }
 
     @GetMapping("/allPlaylists")
@@ -63,12 +64,13 @@ public class MusicController {
 
     @GetMapping("/playlist")
     public List<SongDTO> getAllPlayListSongs(@RequestParam String playListName){
-        return playListService.getAllPlayListSongs(playListName);
+        return playListService.getAllSongsAfterLiked(playListService.getAllPlayListSongs(playListName), playListService.getLikedSongs());
     }
 
     @PostMapping("/addToLiked")
-    public void addSongToLiked(@RequestBody SongDTO songDTO){
-        playListService.addToLikedSongs(songDTO);
+    public void addSongToLiked(@RequestBody String title){
+        System.out.println(title);
+        playListService.addToLikedSongs(songService.getSongByname(title));
     }
 
     @GetMapping("/likedSongs")
@@ -88,12 +90,12 @@ public class MusicController {
 
     @GetMapping("/album")
     public List<SongDTO> getAllSongsOfAlbum(@RequestParam String albumName){
-        return albumService.getAllSongsInAlbum(albumName);
+        return playListService.getAllSongsAfterLiked(albumService.getAllSongsInAlbum(albumName), playListService.getLikedSongs());
     }
 
     @GetMapping("/artist")
     public List<SongDTO> getAllSongsOfArtist(@RequestParam String artistName){
-        return artistService.getAllSongsOfArtist(artistName);
+        return playListService.getAllSongsAfterLiked(artistService.getAllSongsOfArtist(artistName), playListService.getLikedSongs());
     }
 
 }

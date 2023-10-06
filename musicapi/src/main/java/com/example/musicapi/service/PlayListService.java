@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,6 +97,19 @@ public class PlayListService {
         likedSongsRepository.save(likedSongs);
     }
 
+    public List<SongDTO> getAllSongsAfterLiked(List<SongDTO> allSongs,List<SongDTO> likedSongs){
+        List<SongDTO> newSongs = new ArrayList<>();
+        for(SongDTO song : likedSongs){
+            allSongs.forEach(tempSong -> {
+                if(tempSong.getTitle().equals(song.getTitle())){
+                    tempSong.setLiked(true);
+                }
+            });
+        }
+        newSongs.addAll(allSongs);
+        return newSongs;
+    }
+
     public List<SongDTO> getLikedSongs(){
         List<SongDTO> songs = new ArrayList<>();
         User user = userService.getLoggedInUser();
@@ -105,7 +119,10 @@ public class PlayListService {
             songs.add(songService.convertSongToDTO(song));
         }
         songs = changeIsLiked(songs);
-        return songs;
+        if(songs.size()==0)
+            return new ArrayList<>();
+        else
+            return songs;
 
     }
 
@@ -117,6 +134,7 @@ public class PlayListService {
             PlayListDTO playListDTO = new PlayListDTO();
             playListDTO.setPlayListName(playList.getPlayListName());
             playListDTO.setSongs(getAllPlayListSongs(playList.getPlayListName()));
+            playListDTO.setNumberOfSongs(getAllPlayListSongs(playList.getPlayListName()).size());
             playListDTOs.add(playListDTO);
         });
         return playListDTOs;
