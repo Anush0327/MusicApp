@@ -26,8 +26,17 @@
                 </td>
             </ng-template>
             <td>
-                <button>➕</button>
+                <button (click)="togglePlaylist(song.title)">➕</button>
             </td>
         </tr>
     </table>
+    <div class="playlists" *ngIf="!playlistHidden">
+        <h3>Select a Playlist</h3>
+        <select>
+            <option  *ngFor="let playlist of playlists" (click)="addToPlaylist(playlist.playListName)">{{playlist.playListName}}</option>
+        </select>
+        <label for="newPlaylist">Add Playlist</label>
+        <input type="text" #newPlaylist>
+        <button type="button" (click)="addToPlaylist(newPlaylist.value)" class="play-button">Create And Add</button>
+    </div>
 </div>

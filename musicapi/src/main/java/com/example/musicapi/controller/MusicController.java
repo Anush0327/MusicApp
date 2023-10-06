@@ -52,8 +52,9 @@ public class MusicController {
     }
 
     @PostMapping("/playlist/add")
-    public void addSongTOPlayList(@RequestParam String playListName,@RequestBody SongDTO songDTO){
-        playListService.addToPlayList(songDTO,playListName);
+    public void addSongTOPlayList(@RequestParam String playlistName,@RequestBody String title){
+        System.out.println(title);
+        playListService.addToPlayList(songService.getSongByname(title), playlistName);
     }
 
     @GetMapping("/allPlaylists")

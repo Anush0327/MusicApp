@@ -67,4 +67,8 @@ export class MusicService {
     return this.http.post<void>(`${this.musicUrl}/addToLiked`, title, {headers: this.getHeader()});
   }
 
+  addToPlaylist(playlistName: string, title: string) {
+    return this.http.post<void>(`${this.musicUrl}/playlist/add?playlistName=${playlistName}`, title, {headers: this.getHeader()});
+  }
+
 }

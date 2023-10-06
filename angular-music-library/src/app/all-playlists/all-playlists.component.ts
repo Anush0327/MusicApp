@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./all-playlists.component.css', '../all-albums/all-albums.component.css']
 })
 export class AllPlaylistsComponent {
-  playlists: Playlist[] = [{playlistName: "Liked Songs", numberOfSongs: -1}];
+  playlists: Playlist[] = [{playListName: "Liked Songs", numberOfSongs: -1}];
 
   constructor(private musicService: MusicService, private router: Router) {}
 
