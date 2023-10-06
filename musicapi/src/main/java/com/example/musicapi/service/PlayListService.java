@@ -97,6 +97,19 @@ public class PlayListService {
         likedSongsRepository.save(likedSongs);
     }
 
+    public List<SongDTO> getAllSongsAfterLiked(List<SongDTO> allSongs,List<SongDTO> likedSongs){
+        List<SongDTO> newSongs = new ArrayList<>();
+        for(SongDTO song : likedSongs){
+            allSongs.forEach(tempSong -> {
+                if(tempSong.getTitle().equals(song.getTitle())){
+                    tempSong.setLiked(true);
+                }
+            });
+        }
+        newSongs.addAll(allSongs);
+        return newSongs;
+    }
+
     public List<SongDTO> getLikedSongs(){
         List<SongDTO> songs = new ArrayList<>();
         User user = userService.getLoggedInUser();

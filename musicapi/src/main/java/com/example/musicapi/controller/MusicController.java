@@ -43,7 +43,7 @@ public class MusicController {
 
     @GetMapping("/allSongs")
     public List<SongDTO> getAllLibrarySongs(){
-        return songService.getAllLibrarySongs();
+        return playListService.getAllSongsAfterLiked(songService.getAllLibrarySongs(), playListService.getLikedSongs());
     }
 
     @PostMapping("/library/add")
@@ -63,7 +63,7 @@ public class MusicController {
 
     @GetMapping("/playlist")
     public List<SongDTO> getAllPlayListSongs(@RequestParam String playListName){
-        return playListService.getAllPlayListSongs(playListName);
+        return playListService.getAllSongsAfterLiked(playListService.getAllPlayListSongs(playListName), playListService.getLikedSongs());
     }
 
     @PostMapping("/addToLiked")
@@ -88,12 +88,12 @@ public class MusicController {
 
     @GetMapping("/album")
     public List<SongDTO> getAllSongsOfAlbum(@RequestParam String albumName){
-        return albumService.getAllSongsInAlbum(albumName);
+        return playListService.getAllSongsAfterLiked(albumService.getAllSongsInAlbum(albumName), playListService.getLikedSongs());
     }
 
     @GetMapping("/artist")
     public List<SongDTO> getAllSongsOfArtist(@RequestParam String artistName){
-        return artistService.getAllSongsOfArtist(artistName);
+        return playListService.getAllSongsAfterLiked(artistService.getAllSongsOfArtist(artistName), playListService.getLikedSongs());
     }
 
 }
