@@ -100,7 +100,11 @@ public class PlayListService {
         List<SongDTO> songs = new ArrayList<>();
         User user = userService.getLoggedInUser();
         LikedSongs likedSongs = likedSongsRepository.findLikedSongsByUser(user);
-        likedSongs.getSongs().stream().forEach(song -> songs.add(songService.convertSongToDTO(song)));
+        for(Song song: likedSongs.getSongs())
+        {
+            songs.add(songService.convertSongToDTO(song));
+        }
+        songs = changeIsLiked(songs);
         return songs;
 
     }

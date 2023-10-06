@@ -2,6 +2,7 @@ package com.example.musicapi.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,14 @@ public class ArtistService {
 
     public List<SongDTO> getAllSongsOfArtist(String artistName){
         List<SongDTO> songs = new ArrayList<>();
-        Artist newArtist = artistRepository.findByArtistName(artistName).get();
+        Optional<Artist> optArtist = artistRepository.findByArtistName(artistName);
+        Artist newArtist = new Artist();
+        if(optArtist.isPresent()){
+            newArtist = optArtist.get();
+        }
+        else{
+            return null;
+        }
         if(!newArtist.isComposer()){
         songs = songService.getAllLibrarySongs().stream().
         filter(song->song.getArtists()
