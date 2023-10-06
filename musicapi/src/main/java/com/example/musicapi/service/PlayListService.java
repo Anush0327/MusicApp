@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -105,7 +106,10 @@ public class PlayListService {
             songs.add(songService.convertSongToDTO(song));
         }
         songs = changeIsLiked(songs);
-        return songs;
+        if(songs.size()==0)
+            return new ArrayList<>();
+        else
+            return songs;
 
     }
 
