@@ -8,9 +8,13 @@
 
 td {
     padding: 10px;
-    text-align: center;
+    text-align: left;
 }
 
 * {
     color: white;
+}
+
+.play-button {
+    background-color: gray;
 }

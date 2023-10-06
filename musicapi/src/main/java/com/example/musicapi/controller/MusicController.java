@@ -43,7 +43,7 @@ public class MusicController {
 
     @GetMapping("/allSongs")
     public List<SongDTO> getAllLibrarySongs(){
-        return getAllLibrarySongs();
+        return songService.getAllLibrarySongs();
     }
 
     @PostMapping("/library/add")
@@ -67,8 +67,8 @@ public class MusicController {
     }
 
     @PostMapping("/addToLiked")
-    public void addSongToLiked(@RequestBody SongDTO songDTO){
-        playListService.addToLikedSongs(songDTO);
+    public void addSongToLiked(@RequestBody String title){
+        playListService.addToLikedSongs(songService.getSongByname(title));
     }
 
     @GetMapping("/likedSongs")

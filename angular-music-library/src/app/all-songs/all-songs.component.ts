@@ -28,4 +28,10 @@ export class AllSongsComponent {
       this.currentlyPlaying = title;
     }
   }
+
+  toggleLike(title: string) {
+    this.musicService.toggleLike(title).subscribe(res => {
+      this.ngOnInit();
+    })
+  }
 }

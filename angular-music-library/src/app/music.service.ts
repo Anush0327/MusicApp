@@ -52,4 +52,12 @@ export class MusicService {
     return this.http.get<Song[]>(`${this.musicUrl}/likedSongs`, {headers: this.getHeader()});
   }
 
+  addSong(song: any): Observable<any> {
+    return this.http.post(`${this.musicUrl}/library/add`, song, {headers: this.getHeader()});
+  }
+
+  toggleLike(title: string): Observable<void> {
+    return this.http.post<void>(`${this.musicUrl}/addToLiked`, title, {headers: this.getHeader()});
+  }
+
 }
