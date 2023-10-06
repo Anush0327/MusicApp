@@ -134,6 +134,7 @@ public class PlayListService {
             PlayListDTO playListDTO = new PlayListDTO();
             playListDTO.setPlayListName(playList.getPlayListName());
             playListDTO.setSongs(getAllPlayListSongs(playList.getPlayListName()));
+            playListDTO.setNumberOfSongs(getAllPlayListSongs(playList.getPlayListName()).size());
             playListDTOs.add(playListDTO);
         });
         return playListDTOs;
